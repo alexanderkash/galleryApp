@@ -60,7 +60,7 @@
                                                                 <color key="titleColor" systemColor="linkColor"/>
                                                             </state>
                                                             <connections>
-                                                                <action selector="aboutPhotoButton:" destination="qkF-XB-wfC" eventType="touchUpInside" id="NMH-kb-dMT"/>
+                                                                <action selector="aboutPhotoButtonPressed:" destination="qkF-XB-wfC" eventType="touchUpInside" id="NMH-kb-dMT"/>
                                                             </connections>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JL7-To-G2N">
@@ -74,7 +74,7 @@
                                                                 <color key="titleColor" systemColor="linkColor"/>
                                                             </state>
                                                             <connections>
-                                                                <action selector="aboutAuthorButton:" destination="qkF-XB-wfC" eventType="touchUpInside" id="7yK-y4-ysT"/>
+                                                                <action selector="aboutAuthorButtonPressed:" destination="qkF-XB-wfC" eventType="touchUpInside" id="7yK-y4-ysT"/>
                                                             </connections>
                                                         </button>
                                                     </subviews>

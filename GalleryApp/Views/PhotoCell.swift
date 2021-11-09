@@ -43,11 +43,11 @@ class PhotoCell: UICollectionViewCell {
         }
     }
     
-    @IBAction private func aboutPhotoButton(_ sender: UIButton) {
+    @IBAction private func aboutPhotoButtonPressed(_ sender: UIButton) {
         onAboutPhotoButtonTapped?()
     }
     
-    @IBAction private func aboutAuthorButton(_ sender: UIButton) {
+    @IBAction private func aboutAuthorButtonPressed(_ sender: UIButton) {
         onAboutAuthorButtonTapped?()
     }
     

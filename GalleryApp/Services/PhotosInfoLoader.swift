@@ -10,12 +10,12 @@ import Foundation
 struct PhotosInfoLoader {
     
     static let shared = PhotosInfoLoader()
+    private let photosInfoUrl = "http://dev.bgsoft.biz/task/"
 
     private init() {}
     
     func loadPhotosInfo(completion: @escaping (Result<[PhotoInfo], Error>) -> Void) {
-        let urlString = "http://dev.bgsoft.biz/task/"
-        guard let url = URL(string: urlString) else { return }
+        guard let url = URL(string: photosInfoUrl) else { return }
         let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
             DispatchQueue.main.async {
                 if let error = error {
