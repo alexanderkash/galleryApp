@@ -7,9 +7,13 @@
 
 import Foundation
 
-struct NetworkService {
+struct PhotosInfoLoader {
     
-    func fetchPhotosInfo(completion: @escaping (Result<[PhotoInfo], Error>) -> Void) {
+    static let shared = PhotosInfoLoader()
+
+    private init() {}
+    
+    func loadPhotosInfo(completion: @escaping (Result<[PhotoInfo], Error>) -> Void) {
         let urlString = "http://dev.bgsoft.biz/task/"
         guard let url = URL(string: urlString) else { return }
         let task = URLSession.shared.dataTask(with: url) { (data, response, error) in

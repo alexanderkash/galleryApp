@@ -8,6 +8,7 @@
 import Foundation
 
 struct PhotoInfo: Decodable {
+    
     let photoUrl: String
     let userName: String
     let userUrl: String

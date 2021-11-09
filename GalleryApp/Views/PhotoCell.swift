@@ -20,7 +20,27 @@ class PhotoCell: UICollectionViewCell {
     
     override func prepareForReuse() {
       imageView.image = nil
-      imageView.cancelImageLoad()
+    }
+    
+    func configure(photos: [PhotoInfo], indexPath: IndexPath) {
+        let url = photos[indexPath.item].url
+        let photoUrl = "http://dev.bgsoft.biz/task/\(url).jpg"
+        let userName = photos[indexPath.item].userName
+        nameLabel.text = userName
+        
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.startAnimating()
+        
+        ImageLoader.shared.loadImage(urlString: photoUrl) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let image):
+                self.imageView.image = image
+                self.activityIndicator.stopAnimating()
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
     }
     
     @IBAction private func aboutPhotoButton(_ sender: UIButton) {

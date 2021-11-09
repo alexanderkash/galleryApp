@@ -41,44 +41,53 @@
                                                     <rect key="frame" x="165.5" y="334" width="20" height="20"/>
                                                 </activityIndicatorView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hHZ-Av-9Eu">
-                                                    <rect key="frame" x="146" y="593" width="59" height="30"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                                    <rect key="frame" x="142.5" y="534.5" width="66.5" height="33.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="28"/>
                                                     <color key="textColor" systemColor="systemBackgroundColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yow-fi-Oog">
-                                                    <rect key="frame" x="15" y="628" width="100" height="20"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="20" id="8Cj-rC-oa5"/>
-                                                        <constraint firstAttribute="width" constant="100" id="ZJx-AH-Br2"/>
-                                                    </constraints>
-                                                    <state key="normal" title="About Photo"/>
-                                                    <connections>
-                                                        <action selector="aboutPhotoButton:" destination="qkF-XB-wfC" eventType="touchUpInside" id="NMH-kb-dMT"/>
-                                                    </connections>
-                                                </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JL7-To-G2N">
-                                                    <rect key="frame" x="15" y="650" width="100" height="20"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="20" id="THR-eW-RCP"/>
-                                                        <constraint firstAttribute="width" constant="100" id="nDS-05-EIO"/>
-                                                    </constraints>
-                                                    <state key="normal" title="About Author"/>
-                                                    <connections>
-                                                        <action selector="aboutAuthorButton:" destination="qkF-XB-wfC" eventType="touchUpInside" id="7yK-y4-ysT"/>
-                                                    </connections>
-                                                </button>
+                                                <stackView opaque="NO" contentMode="scaleToFill" spacing="60" translatesAutoresizingMaskIntoConstraints="NO" id="prJ-DP-0TR">
+                                                    <rect key="frame" x="25.5" y="628" width="300" height="20"/>
+                                                    <subviews>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yow-fi-Oog">
+                                                            <rect key="frame" x="0.0" y="0.0" width="120" height="20"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="20" id="8Cj-rC-oa5"/>
+                                                                <constraint firstAttribute="width" constant="120" id="ZJx-AH-Br2"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                                            <state key="normal" title="About Photo">
+                                                                <color key="titleColor" systemColor="linkColor"/>
+                                                            </state>
+                                                            <connections>
+                                                                <action selector="aboutPhotoButton:" destination="qkF-XB-wfC" eventType="touchUpInside" id="NMH-kb-dMT"/>
+                                                            </connections>
+                                                        </button>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JL7-To-G2N">
+                                                            <rect key="frame" x="180" y="0.0" width="120" height="20"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="20" id="THR-eW-RCP"/>
+                                                                <constraint firstAttribute="width" constant="120" id="nDS-05-EIO"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                                            <state key="normal" title="About Author">
+                                                                <color key="titleColor" systemColor="linkColor"/>
+                                                            </state>
+                                                            <connections>
+                                                                <action selector="aboutAuthorButton:" destination="qkF-XB-wfC" eventType="touchUpInside" id="7yK-y4-ysT"/>
+                                                            </connections>
+                                                        </button>
+                                                    </subviews>
+                                                </stackView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="JL7-To-G2N" firstAttribute="leading" secondItem="qyl-BQ-S1I" secondAttribute="leading" constant="15" id="0eB-Po-aF4"/>
                                                 <constraint firstItem="BHg-yo-uO5" firstAttribute="top" secondItem="qyl-BQ-S1I" secondAttribute="top" id="Gr1-br-j8l"/>
-                                                <constraint firstAttribute="bottom" secondItem="yow-fi-Oog" secondAttribute="bottom" constant="40" id="QND-i6-gEF"/>
+                                                <constraint firstAttribute="bottom" secondItem="prJ-DP-0TR" secondAttribute="bottom" constant="40" id="Sbh-6k-E1X"/>
+                                                <constraint firstItem="prJ-DP-0TR" firstAttribute="centerX" secondItem="qyl-BQ-S1I" secondAttribute="centerX" id="TXq-kO-Cem"/>
                                                 <constraint firstItem="BHg-yo-uO5" firstAttribute="leading" secondItem="qyl-BQ-S1I" secondAttribute="leading" id="Tba-WT-nAW"/>
-                                                <constraint firstItem="yow-fi-Oog" firstAttribute="leading" secondItem="qyl-BQ-S1I" secondAttribute="leading" constant="15" id="Tjn-NT-OA6"/>
                                                 <constraint firstAttribute="bottom" secondItem="BHg-yo-uO5" secondAttribute="bottom" id="gLs-Di-9KB"/>
-                                                <constraint firstItem="JL7-To-G2N" firstAttribute="top" secondItem="yow-fi-Oog" secondAttribute="bottom" constant="2" id="l30-Aj-l17"/>
                                                 <constraint firstAttribute="trailing" secondItem="BHg-yo-uO5" secondAttribute="trailing" id="ovb-jW-9xr"/>
-                                                <constraint firstAttribute="bottom" secondItem="hHZ-Av-9Eu" secondAttribute="bottom" constant="65" id="pTB-7T-5BQ"/>
+                                                <constraint firstAttribute="bottom" secondItem="hHZ-Av-9Eu" secondAttribute="bottom" constant="120" id="pTB-7T-5BQ"/>
                                                 <constraint firstItem="hHZ-Av-9Eu" firstAttribute="centerX" secondItem="BHg-yo-uO5" secondAttribute="centerX" id="sAR-Qw-oZU"/>
                                                 <constraint firstItem="mFi-gh-E3u" firstAttribute="centerX" secondItem="BHg-yo-uO5" secondAttribute="centerX" id="wzI-yR-eRe"/>
                                                 <constraint firstItem="mFi-gh-E3u" firstAttribute="centerY" secondItem="BHg-yo-uO5" secondAttribute="centerY" id="z5l-aK-Y22"/>
@@ -163,6 +172,9 @@
         </scene>
     </scenes>
     <resources>
+        <systemColor name="linkColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

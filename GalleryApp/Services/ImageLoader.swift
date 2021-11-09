@@ -1,52 +1,60 @@
 //
-//  ImageLoader.swift
+//  ImageManager.swift
 //  GalleryApp
 //
-//  Created by Alexander Kogalovsky on 11/4/21.
+//  Created by Alexander Kogalovsky on 11/7/21.
 //
 
 import UIKit
 
-class ImageLoader {
+struct ImageLoader {
     
-    private var loadedImages = [URL: UIImage]()
-    private var runningRequests = [UUID: URLSessionDataTask]()
-        
-    func loadImage(_ url: URL, _ completion: @escaping (Result<UIImage, Error>) -> Void) -> UUID? {
+    static let shared = ImageLoader()
 
-        if let image = loadedImages[url] {
-            completion(.success(image))
-            print(loadedImages)
-            return nil
-        }
-
-        let uuid = UUID()
-
-        let task = URLSession.shared.dataTask(with: url) { data, response, error in
-
-            defer { self.runningRequests.removeValue(forKey: uuid) }
-
-            if let data = data, let image = UIImage(data: data) {
-                self.loadedImages[url] = image
+    private init() {}
+    
+    func loadImage(urlString: String, _ completion: @escaping (Result<UIImage, Error>) -> Void) {
+        guard let url = URL(string: urlString) else { return }
+        let fileCachePath = FileManager.default.temporaryDirectory
+            .appendingPathComponent(url.lastPathComponent, isDirectory: false)
+    
+        if let data =  try? Data(contentsOf: fileCachePath),
+           let image = UIImage(data: data) {
+            DispatchQueue.main.async {
                 completion(.success(image))
-                return
             }
-
-            guard let error = error else { return }
-
-            guard (error as NSError).code == NSURLErrorCancelled else {
-                completion(.failure(error))
-                return
+           return
+        }
+        
+        downloadData(url: url, toFile: fileCachePath) { error in
+            do {
+                let data = try Data(contentsOf: fileCachePath)
+                guard let image = UIImage(data: data) else { return }
+                DispatchQueue.main.async {
+                    completion(.success(image))
+                }
+            }
+            catch {
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    private func downloadData(url: URL, toFile file: URL, completion: @escaping (Error?) -> Void) {
+        let task = URLSession.shared.downloadTask(with: url) { tempURL, response, error in
+            guard let tempURL = tempURL else { completion(error); return }
+            
+            do {
+                if FileManager.default.fileExists(atPath: file.path) {
+                    try FileManager.default.removeItem(at: file)
+                }
+                try FileManager.default.copyItem(at: tempURL, to: file)
+                completion(nil)
+            }
+            catch {
+                completion(error)
             }
         }
         task.resume()
-        runningRequests[uuid] = task
-        return uuid
-    }
-        
-    func cancelLoad(_ uuid: UUID) {
-      runningRequests[uuid]?.cancel()
-      runningRequests.removeValue(forKey: uuid)
     }
 }
-

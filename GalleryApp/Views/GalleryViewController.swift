@@ -15,7 +15,7 @@ class GalleryViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        getPhotoInfo()
+        getPhotosInfo()
         configureCollectionView()
     }
     
@@ -34,8 +34,8 @@ class GalleryViewController: UIViewController {
         }
     }
     
-    private func getPhotoInfo() {
-        NetworkService().fetchPhotosInfo { [weak self] result in
+    private func getPhotosInfo() {
+        PhotosInfoLoader.shared.loadPhotosInfo { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let photos):
@@ -82,25 +82,7 @@ extension GalleryViewController: UICollectionViewDelegate,
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCell.identifier,
                                                       for: indexPath) as! PhotoCell
     
-        let url = photos[indexPath.item].url
-        let photoUrl = "http://dev.bgsoft.biz/task/\(url).jpg"
-        
-        let indicator = cell.activityIndicator
-        indicator?.hidesWhenStopped = true
-        indicator?.startAnimating()
-        
-        ImageManager.shared.loadImage(urlString: photoUrl) { result in
-            switch result {
-            case .success(let image):
-                cell.imageView.image = image
-                indicator?.stopAnimating()
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
-        
-        let userName = photos[indexPath.item].userName
-        cell.nameLabel.text = userName
+        cell.configure(photos: photos, indexPath: indexPath)
         let photoInfoUrl = photos[indexPath.item].photoUrl
         let userUrl = photos[indexPath.item].userUrl
         cell.onAboutPhotoButtonTapped = { self.showDetailInfo(url: photoInfoUrl) }
