@@ -8,7 +8,7 @@
 import UIKit
 import WebKit
 
-class DetailInfoViewController: UIViewController, UINavigationControllerDelegate {
+class DetailInfoViewController: UIViewController {
     
     private let url: String
     @IBOutlet private weak var webView: WKWebView!
