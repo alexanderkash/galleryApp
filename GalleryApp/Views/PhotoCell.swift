@@ -50,6 +50,4 @@ class PhotoCell: UICollectionViewCell {
     @IBAction private func aboutAuthorButtonPressed(_ sender: UIButton) {
         onAboutAuthorButtonTapped?()
     }
-    
-    
 }

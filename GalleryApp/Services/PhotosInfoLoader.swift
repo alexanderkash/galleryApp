@@ -19,7 +19,7 @@ struct PhotosInfoLoader {
         let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
             DispatchQueue.main.async {
                 if let error = error {
-                    print("Some  error", error)
+                    print(error.localizedDescription)
                     completion(.failure(error))
                     return
                 }
@@ -29,7 +29,7 @@ struct PhotosInfoLoader {
                     let photos = result.compactMap{ $0 }
                     completion(.success(photos))
                 } catch let jsonError {
-                    print("Failed to decode JSON", jsonError)
+                    print("Failed to decode JSON", jsonError.localizedDescription)
                     completion(.failure(jsonError))
                 }
             }

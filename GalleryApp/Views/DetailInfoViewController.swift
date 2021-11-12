@@ -26,7 +26,6 @@ class DetailInfoViewController: UIViewController {
     
     private func configureNavBar() {
         navigationController?.isNavigationBarHidden = false
-        navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = false
         navigationController?.hidesBarsOnSwipe = true
     }
@@ -42,5 +41,4 @@ class DetailInfoViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
 }

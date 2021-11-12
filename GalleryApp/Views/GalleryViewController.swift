@@ -7,6 +7,7 @@
 
 import UIKit
 
+
 class GalleryViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
@@ -22,6 +23,7 @@ class GalleryViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         navigationController?.isNavigationBarHidden = true
+        navigationController?.hidesBarsOnSwipe = false
     }
     
     private func configureCollectionView() {
@@ -85,8 +87,13 @@ extension GalleryViewController: UICollectionViewDelegate,
         cell.configure(photos: photos, indexPath: indexPath)
         let photoInfoUrl = photos[indexPath.item].photoUrl
         let userUrl = photos[indexPath.item].userUrl
-        cell.onAboutPhotoButtonTapped = { self.showDetailInfo(url: photoInfoUrl) }
-        cell.onAboutAuthorButtonTapped = { self.showDetailInfo(url: userUrl) }
+        cell.onAboutPhotoButtonTapped = { [weak self] in
+            guard let self = self else { return }
+            self.showDetailInfo(url: photoInfoUrl)
+        }
+        cell.onAboutAuthorButtonTapped = { [weak self] in
+            guard let self = self else { return }
+            self.showDetailInfo(url: userUrl) }
        
         return cell
     }

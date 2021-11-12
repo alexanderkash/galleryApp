@@ -10,6 +10,8 @@ import UIKit
 struct ImageLoader {
     
     static let shared = ImageLoader()
+    
+    private let imageCache = NSCache<NSString, UIImage>()
 
     private init() {}
     
@@ -17,13 +19,21 @@ struct ImageLoader {
         guard let url = URL(string: urlString) else { return }
         let fileCachePath = FileManager.default.temporaryDirectory
             .appendingPathComponent(url.lastPathComponent, isDirectory: false)
-    
-        if let data =  try? Data(contentsOf: fileCachePath),
+        
+        if let cachedImage = imageCache.object(forKey: urlString as NSString) {
+            DispatchQueue.main.async {
+                completion(.success(cachedImage))
+            }
+            return
+        }
+       
+        if let data = try? Data(contentsOf: fileCachePath),
            let image = UIImage(data: data) {
             DispatchQueue.main.async {
                 completion(.success(image))
             }
-           return
+            imageCache.setObject(image, forKey: urlString as NSString)
+            return
         }
         
         downloadData(url: url, toFile: fileCachePath) { error in
@@ -33,6 +43,7 @@ struct ImageLoader {
                 DispatchQueue.main.async {
                     completion(.success(image))
                 }
+                imageCache.setObject(image, forKey: urlString as NSString)
             }
             catch {
                 print(error.localizedDescription)
