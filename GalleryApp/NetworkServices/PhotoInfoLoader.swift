@@ -7,12 +7,9 @@
 
 import Foundation
 
-struct PhotosInfoLoader {
+struct PhotoInfoLoader {
     
-    static let shared = PhotosInfoLoader()
     private let photosInfoUrl = "http://dev.bgsoft.biz/task/"
-
-    private init() {}
     
     func loadPhotosInfo(completion: @escaping (Result<[Photo], Error>) -> Void) {
         guard let url = URL(string: photosInfoUrl) else { return }

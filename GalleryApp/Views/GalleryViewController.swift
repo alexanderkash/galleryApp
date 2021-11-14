@@ -11,17 +11,16 @@ class GalleryViewController: UIViewController {
     
     @IBOutlet private weak var collectionView: UICollectionView!
     
+    private let cellScaleRate: CGFloat = 0.88
+    private let photoInfoLoader = PhotoInfoLoader()
     private var photos = [Photo]()
     private var animator: LinearCardAnimator?
-    private let cellScaleRate: CGFloat = 0.88
     
     override func viewDidLoad() {
         super.viewDidLoad()
         getPhotosInfo()
         configureCollectionView()
-        animator = LinearCardAnimator(scaleRate: cellScaleRate,
-                                      minAlpha: 0.4,
-                                      parallaxSpeed: 0.5)
+        animator = LinearCardAnimator(scaleRate: cellScaleRate)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -48,7 +47,7 @@ class GalleryViewController: UIViewController {
     }
     
     private func getPhotosInfo() {
-        PhotosInfoLoader.shared.loadPhotosInfo { [weak self] result in
+        photoInfoLoader.loadPhotosInfo { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let photos):
@@ -88,6 +87,7 @@ extension GalleryViewController: UICollectionViewDelegate,
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCell.identifier,
                                                       for: indexPath) as! PhotoCell
+        
         cell.transform = CGAffineTransform(scaleX: cellScaleRate, y: cellScaleRate)
         cell.configure(photos: photos, indexPath: indexPath)
         
@@ -103,6 +103,16 @@ extension GalleryViewController: UICollectionViewDelegate,
             self.showDetailInfo(url: userUrl) }
        
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        didEndDisplaying cell: UICollectionViewCell,
+                        forItemAt indexPath: IndexPath) {
+        guard let cell = cell as? PhotoCell else { return }
+        let url = photos[indexPath.item].url
+        let photoUrlString = String(format: cell.photoUrl, url)
+        let canceledTaskUrl = URL(string: photoUrlString)
+        cell.cancelDownloadImage(url: canceledTaskUrl)
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {

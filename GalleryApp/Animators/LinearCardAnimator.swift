@@ -13,7 +13,7 @@ struct LinearCardAnimator {
     let minAlpha: CGFloat
     let parallaxSpeed: CGFloat
     
-    init(scaleRate: CGFloat = 0.88, minAlpha: CGFloat = 0.4, parallaxSpeed: CGFloat = 0.5) {
+    init(scaleRate: CGFloat = 0.9, minAlpha: CGFloat = 0.4, parallaxSpeed: CGFloat = 0.5) {
         self.scaleRate = scaleRate
         self.minAlpha = minAlpha
         self.parallaxSpeed = parallaxSpeed
@@ -58,5 +58,4 @@ struct LinearCardAnimator {
         }
         imageView.frame = CGRect(x: x, y: y, width: width, height: height)
     }
-    
 }

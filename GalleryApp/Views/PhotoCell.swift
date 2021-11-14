@@ -23,7 +23,10 @@ class PhotoCell: UICollectionViewCell {
     var onAboutPhotoButtonTapped: (() -> Void)?
     var onAboutAuthorButtonTapped: (() -> Void)?
     
+    private let imageLoader = ImageLoader()
+   
     override func prepareForReuse() {
+        super.prepareForReuse()
       imageView.image = nil
     }
     
@@ -37,15 +40,14 @@ class PhotoCell: UICollectionViewCell {
     func configure(photos: [Photo], indexPath: IndexPath) {
         hidePhotoInfo()
         let url = photos[indexPath.item].url
-        let photoUrl = String(format: self.photoUrl, url)
+        let photoUrlString = String(format: self.photoUrl, url)
         let userName = photos[indexPath.item].userName
-        
         nameLabel.text = userName
         
         activityIndicator.hidesWhenStopped = true
         activityIndicator.startAnimating()
         
-        ImageLoader.shared.loadImage(urlString: photoUrl) { [weak self] result in
+        imageLoader.loadImage(urlString: photoUrlString) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .success(let image):
@@ -56,6 +58,11 @@ class PhotoCell: UICollectionViewCell {
                 print(error.localizedDescription)
             }
         }
+    }
+    
+    func cancelDownloadImage(url: URL?) {
+        guard let url = url else { return }
+        imageLoader.cancelDownload(url: url)
     }
     
     private func addShadow() {
