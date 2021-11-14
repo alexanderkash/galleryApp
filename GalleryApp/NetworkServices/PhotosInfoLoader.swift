@@ -14,7 +14,7 @@ struct PhotosInfoLoader {
 
     private init() {}
     
-    func loadPhotosInfo(completion: @escaping (Result<[PhotoInfo], Error>) -> Void) {
+    func loadPhotosInfo(completion: @escaping (Result<[Photo], Error>) -> Void) {
         guard let url = URL(string: photosInfoUrl) else { return }
         let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
             DispatchQueue.main.async {
@@ -25,7 +25,7 @@ struct PhotosInfoLoader {
                 }
                 guard let data = data else { return }
                 do {
-                    let result = try JSONDecoder().decode(DecodedArray<PhotoInfo>.self, from: data)
+                    let result = try JSONDecoder().decode(DecodedArray<Photo>.self, from: data)
                     let photos = result.compactMap{ $0 }
                     completion(.success(photos))
                 } catch let jsonError {

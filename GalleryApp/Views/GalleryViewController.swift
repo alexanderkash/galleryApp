@@ -7,21 +7,29 @@
 
 import UIKit
 
-
 class GalleryViewController: UIViewController {
     
-    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet private weak var collectionView: UICollectionView!
     
-    private var photos = [PhotoInfo]()
+    private var photos = [Photo]()
+    private var animator: LinearCardAnimator?
+    private let cellScaleRate: CGFloat = 0.88
     
     override func viewDidLoad() {
         super.viewDidLoad()
         getPhotosInfo()
         configureCollectionView()
+        animator = LinearCardAnimator(scaleRate: cellScaleRate,
+                                      minAlpha: 0.4,
+                                      parallaxSpeed: 0.5)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        configureNavBar()
+    }
+    
+    private func configureNavBar() {
         navigationController?.isNavigationBarHidden = true
         navigationController?.hidesBarsOnSwipe = false
     }
@@ -30,10 +38,13 @@ class GalleryViewController: UIViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.isPagingEnabled = true
-        if let layout = collectionView.collectionViewLayout as?
-                                    UICollectionViewFlowLayout {
-            layout.scrollDirection = .horizontal
-        }
+        collectionView.horizontalScrollIndicatorInsets.bottom = 1
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = 0
+        layout.sectionInset = .zero
+        layout.itemSize = UIScreen.main.bounds.size
+        collectionView.collectionViewLayout = layout
     }
     
     private func getPhotosInfo() {
@@ -53,12 +64,12 @@ class GalleryViewController: UIViewController {
     
     private func showDetailInfo(url: String) {
         guard let vc = storyboard?.instantiateViewController(
-            identifier: "DetailInfoViewController",
-            creator: { coder in
-                DetailInfoViewController(url: url, coder: coder)
-            })
-            else { fatalError("Failed to create Detail Info VC") }
-        self.show(vc, sender: self)
+                identifier: "DetailInfoViewController",
+                creator: { coder in
+                    DetailInfoViewController(url: url, coder: coder)
+                })
+        else { fatalError("Failed to create Detail Info VC") }
+        show(vc, sender: self)
     }
 }
 
@@ -66,12 +77,6 @@ extension GalleryViewController: UICollectionViewDelegate,
                                  UICollectionViewDataSource,
                                  UICollectionViewDelegateFlowLayout {
     
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.width,
-                      height: collectionView.frame.height)
-    }
     
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
@@ -83,10 +88,12 @@ extension GalleryViewController: UICollectionViewDelegate,
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCell.identifier,
                                                       for: indexPath) as! PhotoCell
-    
+        cell.transform = CGAffineTransform(scaleX: cellScaleRate, y: cellScaleRate)
         cell.configure(photos: photos, indexPath: indexPath)
+        
         let photoInfoUrl = photos[indexPath.item].photoUrl
         let userUrl = photos[indexPath.item].userUrl
+        
         cell.onAboutPhotoButtonTapped = { [weak self] in
             guard let self = self else { return }
             self.showDetailInfo(url: photoInfoUrl)
@@ -97,7 +104,23 @@ extension GalleryViewController: UICollectionViewDelegate,
        
         return cell
     }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let layout = collectionView.collectionViewLayout as! UICollectionViewFlowLayout
+        for cell in collectionView.visibleCells as! [PhotoCell] {
+            animator?.animate(cell: cell, collectionView: collectionView, layout: layout)
+            guard let imageView = cell.imageView else { return }
+            animator?.addParallaxEffect(cell: cell,
+                                       imageView: imageView,
+                                       collectionView: collectionView,
+                                       layout: layout)
+        }
+    }
 }
+
+
+
+
 
 
 

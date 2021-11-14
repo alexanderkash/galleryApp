@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1146A4CC27413FDF00A0C197 /* LinearCardAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1146A4CB27413FDF00A0C197 /* LinearCardAnimator.swift */; };
 		11A5390B2733C9D900F091E0 /* PhotosInfoLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A5390A2733C9D900F091E0 /* PhotosInfoLoader.swift */; };
-		11A539142733CA6500F091E0 /* PhotoInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A539132733CA6500F091E0 /* PhotoInfo.swift */; };
+		11A539142733CA6500F091E0 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A539132733CA6500F091E0 /* Photo.swift */; };
 		11A539172733CA8B00F091E0 /* DecodedArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A539162733CA8B00F091E0 /* DecodedArray.swift */; };
 		11A5391B2733DD5600F091E0 /* DetailInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11A5391A2733DD5600F091E0 /* DetailInfoViewController.swift */; };
 		11C1582B2733C3F100B519FE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11C1582A2733C3F100B519FE /* AppDelegate.swift */; };
@@ -23,8 +24,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1146A4CB27413FDF00A0C197 /* LinearCardAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinearCardAnimator.swift; sourceTree = "<group>"; };
 		11A5390A2733C9D900F091E0 /* PhotosInfoLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosInfoLoader.swift; sourceTree = "<group>"; };
-		11A539132733CA6500F091E0 /* PhotoInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoInfo.swift; sourceTree = "<group>"; };
+		11A539132733CA6500F091E0 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		11A539162733CA8B00F091E0 /* DecodedArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecodedArray.swift; sourceTree = "<group>"; };
 		11A5391A2733DD5600F091E0 /* DetailInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInfoViewController.swift; sourceTree = "<group>"; };
 		11C158272733C3F100B519FE /* GalleryApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GalleryApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -51,6 +53,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1146A4CE2741455300A0C197 /* Animators */ = {
+			isa = PBXGroup;
+			children = (
+				1146A4CB27413FDF00A0C197 /* LinearCardAnimator.swift */,
+			);
+			path = Animators;
+			sourceTree = "<group>";
+		};
 		11C1581E2733C3F100B519FE = {
 			isa = PBXGroup;
 			children = (
@@ -73,7 +83,8 @@
 				11C1583F2733C6A800B519FE /* App */,
 				11C158412733C6BF00B519FE /* Models */,
 				11C158402733C6B000B519FE /* Views */,
-				11C158422733C6DE00B519FE /* Services */,
+				1146A4CE2741455300A0C197 /* Animators */,
+				11C158422733C6DE00B519FE /* NetworkServices */,
 				11C158432733C6E700B519FE /* Extensions */,
 				11C158332733C3F400B519FE /* Assets.xcassets */,
 				11C158382733C3F400B519FE /* Info.plist */,
@@ -105,19 +116,19 @@
 		11C158412733C6BF00B519FE /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				11A539132733CA6500F091E0 /* PhotoInfo.swift */,
+				11A539132733CA6500F091E0 /* Photo.swift */,
 				11A539162733CA8B00F091E0 /* DecodedArray.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
 		};
-		11C158422733C6DE00B519FE /* Services */ = {
+		11C158422733C6DE00B519FE /* NetworkServices */ = {
 			isa = PBXGroup;
 			children = (
 				11A5390A2733C9D900F091E0 /* PhotosInfoLoader.swift */,
 				11EEBD9A2737EE890088247C /* ImageLoader.swift */,
 			);
-			path = Services;
+			path = NetworkServices;
 			sourceTree = "<group>";
 		};
 		11C158432733C6E700B519FE /* Extensions */ = {
@@ -198,8 +209,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				11A539142733CA6500F091E0 /* PhotoInfo.swift in Sources */,
+				11A539142733CA6500F091E0 /* Photo.swift in Sources */,
 				11EEBD9B2737EE8A0088247C /* ImageLoader.swift in Sources */,
+				1146A4CC27413FDF00A0C197 /* LinearCardAnimator.swift in Sources */,
 				11C1584A2733C77100B519FE /* PhotoCell.swift in Sources */,
 				11C1582F2733C3F100B519FE /* GalleryViewController.swift in Sources */,
 				11A5391B2733DD5600F091E0 /* DetailInfoViewController.swift in Sources */,

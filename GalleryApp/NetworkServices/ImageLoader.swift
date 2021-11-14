@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct ImageLoader {
+class ImageLoader {
     
     static let shared = ImageLoader()
     
@@ -43,7 +43,7 @@ struct ImageLoader {
                 DispatchQueue.main.async {
                     completion(.success(image))
                 }
-                imageCache.setObject(image, forKey: urlString as NSString)
+                self.imageCache.setObject(image, forKey: urlString as NSString)
             }
             catch {
                 print(error.localizedDescription)
@@ -68,4 +68,5 @@ struct ImageLoader {
         }
         task.resume()
     }
+    
 }
